@@ -1,9 +1,10 @@
-// setting up app
+// set up express server
 var app = require('express')();
 var http = require('http').Server(app);   // Ensure we're using HTTPS
 var io = require('socket.io')(http);
 
-// serving initial files from server to client
+// serving initial files from server to client (upon request/site load)
+// (dynamic/non-static site, so files *must* be served)
 app.get('/', function(req, res){          // GET okay here (just serving html)?
     // serve index
     res.sendFile(__dirname + '/index.html');
