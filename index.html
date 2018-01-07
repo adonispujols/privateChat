@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Private Chat</title>
     <style>
+    /* the asterisk affects all elements */
         * {
             margin: 0;
             padding: 0;
@@ -47,9 +48,34 @@
 </head>
 <body>
     <p style="font-size: 50px;">Hello, 世界!</p>
+    <!-- holds list of messages -->
     <ul id="messages"></ul>
-    <form action="">
-        <input id="m" autocomplete="off" /><button>Send</button>
+    <!-- removed action="" to comply with HTML5 (may pose security risks) -->
+    <!-- "return false" to avoid refresh & sending form data -->
+    <form onSubmit="return false">
+        <input id="m" autocomplete="off"/> <!-- holds input -->
+        <button>Send</button>
     </form>
+    <!-- loading scripts here to quicken loading time-->
+    <!-- DOWNLOAD scripts -->
+    <script src= "/socket.io/socket.io.js"></script>
+    <!-- jquery speeds up DOM interaction -->
+    <script src= "https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script>
+        $(function () {
+            // set up socket.io on client
+            var socket = io();
+            // when form is submitted
+            $('form').submit(function(){
+                // emit message value to server as 'chat message' event
+                socket.emit('chat message', $('#m').val());
+                // clear input field (empty string)
+                $('#m').val('');
+            });
+        });
+    </script>
+    <script>
+        var socket = io();
+    </script>
 </body>
 </html>
