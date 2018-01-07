@@ -1,11 +1,9 @@
 // set up express server
 var app = require('express')();
-var http = require('http').Server(app);   // Are we using HTTPS?
-// connect socket.io to express/http server.
+var http = require('http').Server(app);   // Ensure we're using HTTPS
 var io = require('socket.io')(http);
 
-
-// serving initial files from server to client (upon request/site load, via express)
+// serving initial files from server to client (upon request/site load)
 // (dynamic/non-static site, so files *must* be served)
 app.get('/', function(req, res){          // GET okay here (just serving html)?
     // serve index
@@ -21,7 +19,7 @@ io.on('connection', function(socket){
     })
 });
 
-// http server listens to certain port (via express)
+// http server listens to certain port
 http.listen(3000, function(){
     console.log('listening on *:3000');  // log upon starting
 });
